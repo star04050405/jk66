@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>健康 66 条 · 国家健康素养手册</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<meta name="theme-color" content="#F7F4EC">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Segoe UI",sans-serif;
+  background:#F7F4EC;color:#2A2E2A;line-height:1.75;
+}
+.serif{font-family:Georgia,"Times New Roman","Songti SC",serif}
+/* ============ 顶栏 ============ */
+.jk-head{
+  position:sticky;top:0;z-index:30;background:rgba(247,244,236,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid #E5DFD0;
+  padding:14px 20px 10px;
+}
+.jk-headRow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;max-width:720px;margin:0 auto}
+.jk-logo{font-size:22px;font-weight:700;letter-spacing:-.02em;color:#2F6B4F;font-family:Georgia,serif}
+.jk-logo em{font-style:normal;color:#2A2E2A}
+.jk-sub{font-size:12px;color:#8A8677;letter-spacing:.04em}
+.jk-count{font-size:12px;color:#2F6B4F;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.jk-prog{height:3px;background:#EAE5D8;border-radius:2px;margin:10px auto 0;max-width:720px;overflow:hidden}
+.jk-progFill{height:100%;width:0%;background:#2F6B4F;border-radius:2px;transition:width .4s}
+/* ============ 主体 ============ */
+.jk-wrap{max-width:720px;margin:0 auto;padding:26px 20px 40px}
+/* ---- 今日一条 ---- */
+.jk-today{
+  background:#fff;border-radius:18px;padding:24px 26px 22px;
+  box-shadow:0 1px 2px rgba(60,55,40,.05),0 10px 30px -18px rgba(60,55,40,.25);
+  border:1px solid #EFEAE0;position:relative;overflow:hidden;
+}
+.jk-todayTag{font-size:12px;color:#2F6B4F;font-weight:700;letter-spacing:.14em}
+.jk-todayDate{font-size:12px;color:#A39E8C;margin-left:8px}
+.jk-todayNo{
+  position:absolute;right:18px;top:2px;font-size:96px;font-weight:700;font-style:italic;
+  color:rgba(47,107,79,.08);font-family:Georgia,serif;line-height:1;font-variant-numeric:tabular-nums;
+}
+.jk-todayText{font-size:19px;line-height:1.9;margin-top:10px;position:relative;font-weight:500}
+.jk-todayAct{margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+/* ---- 点亮按钮 ---- */
+.jk-btn{
+  border:0;cursor:pointer;font-family:inherit;border-radius:999px;
+  padding:9px 22px;font-size:15px;font-weight:600;
+  background:#2F6B4F;color:#fff;transition:transform .12s,background .2s,box-shadow .2s;
+  box-shadow:0 4px 14px -6px rgba(47,107,79,.55);
+}
+.jk-btn:active{transform:scale(.94)}
+.jk-btn.jk-on{background:#DDEBE1;color:#2F6B4F;box-shadow:none}
+.jk-hint{font-size:12px;color:#A39E8C}
+/* ---- 分部 tab ---- */
+.jk-tabs{display:flex;gap:6px;margin:28px 0 6px;border-bottom:1px solid #E5DFD0}
+.jk-tab{
+  flex:1;border:0;background:none;cursor:pointer;font-family:inherit;
+  padding:10px 4px 12px;font-size:14px;color:#8A8677;border-radius:10px 10px 0 0;
+  position:relative;white-space:nowrap;
+}
+.jk-tab b{display:block;font-size:11px;font-weight:600;opacity:.75;font-family:Georgia,serif;letter-spacing:.1em}
+.jk-tab.jk-on{color:#2F6B4F;font-weight:700}
+.jk-tab.jk-on::after{content:'';position:absolute;left:18%;right:18%;bottom:-1px;height:3px;background:#2F6B4F;border-radius:3px}
+/* ---- 条目卡 ---- */
+.jk-sec{display:none;padding-top:14px}
+.jk-sec.jk-on{display:block;animation:jkFade .25s}
+@keyframes jkFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.jk-card{
+  display:flex;gap:14px;align-items:flex-start;
+  background:#fff;border:1px solid #EFEAE0;border-radius:14px;
+  padding:16px 16px 14px;margin-bottom:10px;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s;
+}
+.jk-card:active{transform:scale(.995)}
+.jk-card.jk-read{border-color:#CDE0D3;background:#FCFDFB}
+.jk-no{
+  font-size:26px;font-weight:700;font-style:italic;color:#C9C3B2;
+  font-family:Georgia,serif;min-width:40px;text-align:right;line-height:1.2;
+  font-variant-numeric:tabular-nums;transition:color .2s;
+}
+.jk-card.jk-read .jk-no{color:#2F6B4F}
+.jk-body{flex:1}
+.jk-txt{font-size:15.5px;line-height:1.85}
+.jk-card.jk-read .jk-txt{color:#6E6B5F}
+.jk-mark{margin-top:8px;font-size:12px;color:#2F6B4F;font-weight:700;letter-spacing:.06em;display:none}
+.jk-card.jk-read .jk-mark{display:block}
+/* ---- 墙 ---- */
+.jk-wallT{margin:34px 0 10px;display:flex;align-items:baseline;justify-content:space-between}
+.jk-wallT h2{font-size:16px;font-weight:700;letter-spacing:.02em}
+.jk-wallT span{font-size:12px;color:#A39E8C}
+.jk-wall{display:grid;grid-template-columns:repeat(11,1fr);gap:5px}
+.jk-cell{
+  aspect-ratio:1;border-radius:5px;background:#EDE8DA;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:#B9B29E;font-family:Georgia,serif;transition:all .2s;
+}
+.jk-cell.jk-on{background:#2F6B4F;color:rgba(255,255,255,.9);box-shadow:0 2px 8px -3px rgba(47,107,79,.5)}
+.jk-cell:active{transform:scale(.88)}
+@media (max-width:560px){
+  .jk-wall{grid-template-columns:repeat(9,1fr)}
+  .jk-todayNo{font-size:72px}
+  .jk-txt{font-size:15px}
+}
+/* ---- footer ---- */
+.jk-foot{
+  max-width:720px;margin:26px auto 0;padding:20px 20px 34px;
+  border-top:1px solid #E5DFD0;font-size:12.5px;color:#8A8677;line-height:1.9;
+}
+.jk-foot b{color:#5A5749}
+.jk-dis{
+  margin-top:12px;background:#FBF9F2;border:1px solid #EFE9DA;border-radius:12px;
+  padding:12px 14px;color:#9A6B4F;display:flex;gap:8px;
+}
+</style>
+</head>
+<body>
+<header class="jk-head">
+  <div class="jk-headRow">
+    <div>
+      <div class="jk-logo">jk<em>66</em><span style="color:#A39E8C">.</span></div>
+      <div class="jk-sub">国家卫健委 · 健康素养 66 条 · 2024 年版</div>
+    </div>
+    <div class="jk-count"><span id="cnt">0</span> / 66</div>
+  </div>
+  <div class="jk-prog"><div class="jk-progFill" id="prog"></div></div>
+</header>
+
+<main class="jk-wrap">
+  <!-- 今日一条 -->
+  <section class="jk-today" id="todayCard">
+    <div><span class="jk-todayTag">今日一条</span><span class="jk-todayDate" id="todayDate"></span></div>
+    <div class="jk-todayNo" id="todayNo">1</div>
+    <p class="jk-todayText" id="todayText"></p>
+    <div class="jk-todayAct">
+      <button class="jk-btn" id="todayBtn">点亮 ✓</button>
+      <span class="jk-hint">66 天读一轮，今天轮到第 <span id="todayN">1</span> 条</span>
+    </div>
+  </section>
+
+  <!-- 三部分 -->
+  <nav class="jk-tabs" id="tabs">
+    <button class="jk-tab jk-on" data-sec="0"><b>一</b>知识与理念</button>
+    <button class="jk-tab" data-sec="1"><b>二</b>生活方式与行为</button>
+    <button class="jk-tab" data-sec="2"><b>三</b>基本技能</button>
+  </nav>
+  <section class="jk-sec jk-on" id="sec0"></section>
+  <section class="jk-sec" id="sec1"></section>
+  <section class="jk-sec" id="sec2"></section>
+
+  <!-- 66 格墙 -->
+  <div class="jk-wallT"><h2 class="serif" style="font-style:italic">No. 66 格点亮墙</h2><span>点格子跳到那一条</span></div>
+  <div class="jk-wall" id="wall"></div>
+</main>
+
+<footer class="jk-foot">
+  <b>来源</b>：国家卫生健康委办公厅《中国公民健康素养——基本知识与技能（2024 年版）》（国卫办宣传函〔2024〕191 号，2024 年 5 月 28 日印发）。本页逐条原文收录，共 66 条：基本知识和理念 24 条、健康生活方式与行为 28 条、基本技能 14 条。点亮记录只存在你的设备上。
+  <div class="jk-dis">⚕ 本手册为健康科普参考，不构成医疗建议；如有持续不适或急症，请及时就医或拨打 120。</div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+/* ============ 官方原文 66 条 ============ */
+var D=[
+[1,'健康不仅仅是没有疾病或虚弱，而是身体、心理和社会适应的良好状态。预防是促进健康最有效、最经济的手段。'],
+[2,'公民的身心健康受法律保护，每个人都有维护自身健康和不损害他人健康的责任。'],
+[3,'主动学习健康知识，践行文明健康生活方式，维护和促进自身健康。'],
+[4,'环境与健康息息相关，保护环境，促进健康。'],
+[5,'无偿献血，助人利己。'],
+[6,'每个人都应当关爱、帮助、不歧视病残人员。'],
+[7,'定期进行健康体检。'],
+[8,'血压、体温、呼吸和心率是人体的四大生命体征。'],
+[9,'传染源、传播途径和易感人群是传染病流行的三个环节，防控传染病人人有责。'],
+[10,'儿童出生后应按照免疫程序接种疫苗，成年人也可通过接种疫苗达到预防疾病的效果。'],
+[11,'艾滋病、乙肝和丙肝通过血液、性接触和母婴三种途径传播，日常生活和工作接触不会传播。'],
+[12,'出现咳嗽、咳痰 2 周以上，或痰中带血，应及时检查是否得了肺结核；坚持规范治疗，大部分肺结核患者能够治愈。'],
+[13,'家养犬、猫应接种兽用狂犬病疫苗；人被犬、猫抓伤、咬伤后，应立即冲洗、消毒伤口，并尽早注射狂犬病人免疫球蛋白（或血清或单克隆抗体）和人用狂犬病疫苗。'],
+[14,'蚊子、苍蝇、老鼠、蟑螂等会传播多种疾病。'],
+[15,'不加工、不食用病死禽畜。不猎捕、不买卖、不接触、不食用野生动物。'],
+[16,'关注血压变化，控制高血压危险因素，高血压患者要做好自我健康管理。'],
+[17,'关注血糖变化，控制糖尿病危险因素，糖尿病患者要做好自我健康管理。'],
+[18,'关注肺功能，控制慢阻肺危险因素，慢阻肺患者要做好自我健康管理。'],
+[19,'积极参加癌症筛查，及早发现癌症和癌前病变。'],
+[20,'预防骨质疏松症，促进骨骼健康。'],
+[21,'关爱老年人，预防老年人跌倒，识别老年期痴呆。'],
+[22,'关爱青少年和女性生殖健康，选择安全、适宜的避孕措施，预防和减少非意愿妊娠，保护生育能力。'],
+[23,'劳动者依法享有职业健康保护的权利；劳动者要了解工作岗位和工作环境中存在的危害因素（如粉尘、噪声、有毒有害气体等），遵守操作规程，做好个人防护，避免职业健康损害。'],
+[24,'保健食品不是药品，正确选用保健食品。'],
+[25,'体重关联多种疾病，要吃动平衡，保持健康体重，避免超重与肥胖。'],
+[26,'膳食应以谷类为主，多吃蔬菜、水果和薯类，注意荤素、粗细搭配，不偏食，不挑食。'],
+[27,'膳食要清淡，要少盐、少油、少糖，食用合格碘盐。'],
+[28,'提倡每天食用奶类、大豆类及其制品，适量食用坚果。'],
+[29,'生、熟食品要分开存放和加工，生吃蔬菜水果要洗净，不吃变质、超过保质期的食品。'],
+[30,'珍惜食物不浪费，提倡公筷分餐讲卫生。'],
+[31,'注意饮水卫生，每天足量饮水，不喝或少喝含糖饮料。'],
+[32,'科学健身，贵在坚持。健康成年人每周应进行 150～300 分钟中等强度或 75～150 分钟高强度有氧运动，每周应进行 2～3 次抗阻训练。'],
+[33,'不吸烟（含电子烟），吸烟和二手烟暴露会导致多种疾病。电子烟含有多种有害物质，会对健康产生危害。'],
+[34,'烟草依赖是一种慢性成瘾性疾病。戒烟越早越好。任何年龄戒烟均可获益，戒烟时可寻求专业戒烟服务。'],
+[35,'少饮酒，不酗酒。'],
+[36,'重视和维护心理健康，遇到心理问题时应主动寻求帮助。'],
+[37,'每个人都可能出现焦虑和抑郁情绪，正确认识焦虑症和抑郁症。'],
+[38,'通过亲子交流、玩耍促进儿童早期发展。发现心理行为发育问题应及时就医。'],
+[39,'劳逸结合，起居有常，保证充足睡眠。'],
+[40,'讲究个人卫生，养成良好的卫生习惯，科学使用消毒产品，积极预防传染病。'],
+[41,'保护口腔健康，早晚刷牙，饭后漱口。'],
+[42,'科学就医，及时就诊，遵医嘱治疗，理性对待诊疗结果。'],
+[43,'合理用药，能口服不肌注，能肌注不输液，遵医嘱使用抗微生物药物。'],
+[44,'遵医嘱使用麻醉药品和精神药品等易成瘾性药物，预防药物依赖。'],
+[45,'拒绝毒品。'],
+[46,'农村使用卫生厕所，管理好禽畜粪便。'],
+[47,'戴头盔、系安全带；不超速、不酒驾、不分心驾驶、不疲劳驾驶；儿童使用安全座椅，减少道路交通伤害。'],
+[48,'加强看护和教育，预防儿童溺水，科学救助溺水人员。'],
+[49,'冬季取暖注意通风，谨防一氧化碳中毒。'],
+[50,'主动接受婚前和孕前保健，适龄生育，孕期遵医嘱规范接受产前检查和妊娠风险筛查评估，住院分娩。'],
+[51,'孩子出生后应尽早开始母乳喂养，满 6 个月时合理添加辅食。'],
+[52,'青少年要培养健康的行为生活方式，每天应坚持户外运动 2 小时以上，应较好掌握 1 项以上的运动技能，预防近视、超重与肥胖，避免网络成瘾和过早性行为。'],
+[53,'关注健康信息，能够正确获取、理解、甄别、应用健康信息。'],
+[54,'会阅读食品标签，合理选择预包装食品。'],
+[55,'会识别常见危险标识，远离危险环境。'],
+[56,'科学管理家庭常用药物，会阅读药品标签和说明书。'],
+[57,'会测量脉搏、体重、体温和血压。'],
+[58,'需要紧急医疗救助时，会拨打 120 急救电话。'],
+[59,'妥善存放和正确使用农药，谨防儿童接触。'],
+[60,'遇到呼吸、心搏骤停的伤病员，会进行心肺复苏，学习使用自动体外除颤器（AED）。'],
+[61,'发生创伤出血时，会进行止血、包扎；对怀疑骨折的伤员不要随意搬动。'],
+[62,'会处理烧烫伤，会用腹部冲击法排出气道异物。'],
+[63,'抢救触电者时，要首先切断电源，不要直接接触触电者。'],
+[64,'发生建筑火灾时，拨打火警电话 119，会自救逃生。'],
+[65,'发生滑坡、崩塌、泥石流等地质灾害和地震时，选择正确避险方式，会自救互救。'],
+[66,'发生洪涝灾害时，选择正确避险方式，会自救互救。']
+];
+var K='jk66_read';
+function getRead(){try{return JSON.parse(localStorage.getItem(K))||{}}catch(e){return{}}}
+function setRead(o){localStorage.setItem(K,JSON.stringify(o))}
+function dayIdx(){
+  var d=new Date();
+  return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);
+}
+function todayNo(){return dayIdx()%66+1}
+/* ---- 渲染条目卡 ---- */
+var SECS=[[1,24],[25,52],[53,66]];
+SECS.forEach(function(r,i){
+  var box=$('sec'+i),h='';
+  D.forEach(function(it){
+    var n=it[0];
+    if(n<r[0]||n>r[1])return;
+    h+='<div class="jk-card'+(getRead()[n]?' jk-read':'')+'" data-n="'+n+'" id="c'+n+'">'
+      +'<div class="jk-no">'+n+'</div>'
+      +'<div class="jk-body"><p class="jk-txt">'+it[1]+'</p>'
+      +'<div class="jk-mark">✓ 已点亮</div></div></div>';
+  });
+  box.innerHTML=h;
+});
+/* ---- 66 格墙 ---- */
+var wall=$('wall'),wh='';
+D.forEach(function(it){
+  wh+='<div class="jk-cell'+(getRead()[it[0]]?' jk-on':'')+'" data-n="'+it[0]+'" title="第 '+it[0]+' 条">'+it[0]+'</div>';
+});
+wall.innerHTML=wh;
+/* ---- 今日一条 ---- */
+function renderToday(){
+  var n=todayNo(),txt=D[n-1][1],read=!!getRead()[n];
+  $('todayNo').textContent=n;
+  $('todayText').textContent=txt;
+  $('todayN').textContent=n;
+  var d=new Date();
+  $('todayDate').textContent=(d.getMonth()+1)+' 月 '+d.getDate()+' 日';
+  var b=$('todayBtn');
+  b.textContent=read?'已点亮 ✓':'点亮 ✓';
+  b.classList.toggle('jk-on',read);
+}
+function toggle(n){
+  var r=getRead();
+  if(r[n]){delete r[n]}else{r[n]=1}
+  setRead(r);
+  var c=$('c'+n);
+  if(c)c.classList.toggle('jk-read',!!r[n]);
+  var cells=wall.querySelectorAll('.jk-cell');
+  cells.forEach(function(cell){if(+cell.dataset.n===n)cell.classList.toggle('jk-on',!!r[n])});
+  if(n===todayNo())renderToday();
+  renderCnt();
+}
+function renderCnt(){
+  var c=Object.keys(getRead()).length;
+  $('cnt').textContent=c;
+  $('prog').style.width=(c/66*100)+'%';
+}
+/* ---- 事件 ---- */
+$('todayBtn').addEventListener('click',function(){toggle(todayNo())});
+document.body.addEventListener('click',function(e){
+  var c=e.target.closest('.jk-card');
+  if(c){toggle(+c.dataset.n);return}
+  var cell=e.target.closest('.jk-cell');
+  if(cell){
+    var n=+cell.dataset.n;
+    /* 跳到对应分部并滚到该卡 */
+    var sec=n<=24?0:(n<=52?1:2);
+    document.querySelectorAll('.jk-tab').forEach(function(t,i){t.classList.toggle('jk-on',i===sec)});
+    document.querySelectorAll('.jk-sec').forEach(function(s,i){s.classList.toggle('jk-on',i===sec)});
+    var card=$('c'+n);
+    if(card){
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      card.style.transition='box-shadow .5s';
+      card.style.boxShadow='0 0 0 2px #2F6B4F';
+      setTimeout(function(){card.style.boxShadow=''},1200);
+    }
+  }
+});
+$('tabs').addEventListener('click',function(e){
+  var t=e.target.closest('.jk-tab');if(!t)return;
+  document.querySelectorAll('.jk-tab').forEach(function(x){x.classList.remove('jk-on')});
+  t.classList.add('jk-on');
+  document.querySelectorAll('.jk-sec').forEach(function(s,i){s.classList.toggle('jk-on',i===+t.dataset.sec)});
+  var tb=document.querySelector('.jk-tabs');
+  window.scrollTo({top:Math.min(window.scrollY,tb.offsetTop-70),behavior:'smooth'});
+});
+renderToday();renderCnt();
+})();
+</script>
+</body>
+</html>
